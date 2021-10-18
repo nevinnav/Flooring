@@ -1,0 +1,2 @@
+OrderNumber,CustomerName,State,TaxRate,ProductType,Area,CostPerSquareFoot, LaborCostPerSquareFoot,MaterialCost,LaborCost,Tax,Total
+1__Fix Customer Name__CA__7.25__Carpet__200.00__3.99__3.50__798.00__700.00__108.61__1606.61
