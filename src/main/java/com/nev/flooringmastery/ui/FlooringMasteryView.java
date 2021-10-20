@@ -38,9 +38,9 @@ public class FlooringMasteryView {
 
     public void displayAllOrders(Collection<Order> orders) {
         io.print("");
-        io.print("Order  Customer   State    Product    Area    Total      Order");
-        io.print("Number Name       Abbrev.                     Cost       Date");
-        io.print("=======================================================");
+        io.print("Order   Customer   State    Product    Area    Total      Order");
+        io.print("Number  Name       Abbrev.                     Cost       Date");
+        io.print("===============================================================");
         orders.stream().forEach((p) -> io.print(p.getOrderNumber() + " "
                 + p.getCustomerName() + " "
                 + p.getStateAbbreviation() + " "
@@ -74,6 +74,38 @@ public class FlooringMasteryView {
         }
 
     }
+    
+    public void displaySuccessOrderProcess(Order order, String message) {
+        io.print("");
+        io.print("***Order Number " + order.getOrderNumber() + message + "***");
+        io.readString("Press ENTER to return to Main Menu.");
+        io.print("");
+    }
+    
+    public void displayOrderNotProcessed(String message) {
+        io.print("");
+        io.print(message);
+        io.readString("Press ENTER to return to Main Menu.");
+        io.print("");
+    }
+    
+    public void displayOrderToProcess(Order order, String message) {
+        io.print("");
+        io.print(message);
+        io.print("==============");
+        io.print("Order date: " + order.getOrderDate().format(DateTimeFormatter.ofPattern("MM-dd-yyyy")));
+        io.print("Customer name: " + order.getCustomerName());
+        io.print("State: " + order.getStateAbbreviation());
+        io.print("Product: " + order.getProductType());
+        io.print("Product Cost: $" + order.getCostPerSqFt() + " per sq. ft.");
+        io.print("Labour Cost: $" + order.getLabourPerSqFt() + " per sq. ft.");
+        io.print("Area: " + order.getArea() + " sq. ft.");
+        io.print("Product Cost: $" + order.getMaterialCost());
+        io.print("Labour Cost: " + order.getLabourCost());
+        io.print("Tax Cost: " + order.getTaxCost());
+        io.print("Total Cost: " + order.getTotalCost());
+        io.print("");
+    }
 
     public StateTax checkState(Collection<StateTax> stateTaxes, String stateString) {
         StateTax checkState = stateTaxes.stream().filter((p) -> p.getStateAbbreviation().equals(stateString))
@@ -101,7 +133,7 @@ public class FlooringMasteryView {
 
     public int getOrderNumber() {
         io.print("");
-        int orderNumber = io.readInt("Enter order number.");
+        int orderNumber = io.readInt("Enter order number");
         return orderNumber;
     }
 
@@ -126,7 +158,7 @@ public class FlooringMasteryView {
         String stateString = io.readString("Enter state of residence. Ex: CA for California, HI for Hawaii.");
         StateTax state = this.checkState(stateTaxes, stateString);
         while (state == null) {
-            stateString = io.readString("Enter a valid state of residence.");
+            stateString = io.readString("\nEnter a valid state of residence.");
             state = this.checkState(stateTaxes, stateString);
         }
 
@@ -139,7 +171,7 @@ public class FlooringMasteryView {
         String stringProduct = io.readString("Enter product type:");
         Product product = this.checkProduct(productTypes, stringProduct);
         while (product == null) {
-            stringProduct = io.readString("Enter a valid product");
+            stringProduct = io.readString("\nEnter a valid product");
             product = this.checkProduct(productTypes, stringProduct);
         }
 
@@ -164,69 +196,6 @@ public class FlooringMasteryView {
         return pendingOrder;
     }
 
-    public boolean displayPendingOrderAndConfirmOrder(Order pendingOrder) {
-        //Display pending order information
-        io.print("");
-        io.print("Pending Order Details");
-        io.print("=====================");
-        io.print("Order date: " + pendingOrder.getOrderDate().format(DateTimeFormatter.ofPattern("MM-dd-yyyy")));
-        io.print("Customer name: " + pendingOrder.getCustomerName());
-        io.print("State: " + pendingOrder.getStateAbbreviation());
-        io.print("Product: " + pendingOrder.getProductType());
-        io.print("Product Cost: $" + pendingOrder.getCostPerSqFt() + " per sq. ft.");
-        io.print("Labour Cost: $" + pendingOrder.getLabourPerSqFt() + " per sq. ft.");
-        io.print("Area: " + pendingOrder.getArea() + " sq. ft.");
-        io.print("Product Cost: $" + pendingOrder.getMaterialCost());
-        io.print("Labour Cost: " + pendingOrder.getLabourCost());
-        io.print("Tax Cost: " + pendingOrder.getTaxCost());
-        io.print("Total Cost: " + pendingOrder.getTotalCost());
-        io.print("");
-
-        //Confirm with user to process order
-        String userConfirms = io.readString("Do you want to add this order? (Y/N)");
-        if (!userConfirms.equalsIgnoreCase("Y") && !userConfirms.equalsIgnoreCase("N")) {
-            userConfirms = io.readString("Do you want to add this order? (Y/N)");
-        }
-
-        if (userConfirms.equalsIgnoreCase("Y")) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    public void displaySuccessAddOrder(Order addedOrder) {
-        io.print("");
-        io.print("***Order Number " + addedOrder.getOrderNumber() + " Successfully Added***");
-        io.readString("Press ENTER to return to Main Menu.");
-        io.print("");
-    }
-
-    public void displayOrderNotProcess() {
-        io.print("");
-        io.print("Order was NOT added.");
-        io.readString("Press ENTER to return to Main Menu.");
-        io.print("");
-    }
-
-    public void displayOrderToEdit(Order order) {
-        // Display pendingEditOrder
-        io.print("");
-        io.print("Order To Edit");
-        io.print("==============");
-        io.print("Order date: " + order.getOrderDate().format(DateTimeFormatter.ofPattern("MM-dd-yyyy")));
-        io.print("Customer name: " + order.getCustomerName());
-        io.print("State: " + order.getStateAbbreviation());
-        io.print("Product: " + order.getProductType());
-        io.print("Product Cost: $" + order.getCostPerSqFt() + " per sq. ft.");
-        io.print("Labour Cost: $" + order.getLabourPerSqFt() + " per sq. ft.");
-        io.print("Area: " + order.getArea() + " sq. ft.");
-        io.print("Product Cost: $" + order.getMaterialCost());
-        io.print("Labour Cost: " + order.getLabourCost());
-        io.print("Tax Cost: " + order.getTaxCost());
-        io.print("Total Cost: " + order.getTotalCost());
-        io.print("");
-    }
 
     public Order getEditInfoOrder(Order editedOrder, Collection<Product> productTypes, Collection<StateTax> stateTaxes) {
         // Edit Customer Name
@@ -237,7 +206,7 @@ public class FlooringMasteryView {
             newCustomerName = editedOrder.getCustomerName();
         }
         while (!(newCustomerName.matches("^[A-Za-z0-9., ]+$"))) {
-            newCustomerName = io.readString("Enter valid customer name or press enter to skip. May contain the following characters:[A-Z][a-z][0-9][.][,]");
+            newCustomerName = io.readString("\nEnter valid customer name or press enter to skip. May contain the following characters:[A-Z][a-z][0-9][.][,]");
             if (newCustomerName.isBlank()) {
                 newCustomerName = editedOrder.getCustomerName();
             }
@@ -258,7 +227,7 @@ public class FlooringMasteryView {
         StateTax state = this.checkState(stateTaxes, newState);
 
         while (state == null) {
-            newState = io.readString("Enter a valid state Ex: CA for California, HI for Hawaii.");
+            newState = io.readString("\nEnter a valid state Ex: CA for California, HI for Hawaii.");
 
             if (newState.isBlank()) {
                 newState = editedOrder.getStateAbbreviation();
@@ -281,7 +250,7 @@ public class FlooringMasteryView {
         Product product = this.checkProduct(productTypes, newProduct);
 
         while (product == null) {
-            newProduct = io.readString("Enter valid product type or press enter to skip.");
+            newProduct = io.readString("\nEnter valid product type or press enter to skip.");
 
             if (newProduct.isBlank()) {
                 newProduct = editedOrder.getProductType();
@@ -307,10 +276,10 @@ public class FlooringMasteryView {
                 newArea = new BigDecimal(newAreaString);
                 isInvalidArea = false;
             } else if (Integer.parseInt(newAreaString) <100) {
-                newAreaString = io.readString("Enter a valid area! Must be positive decimal and minimum order size is 100 sq. ft.");
+                newAreaString = io.readString("\nEnter a valid area! Must be positive decimal and minimum order size is 100 sq. ft.");
             }
             } catch (NumberFormatException e) {
-                newAreaString = io.readString("Enter a valid area! Must be positive decimal and minimum order size is 100 sq. ft.");
+                newAreaString = io.readString("\nEnter a valid area! Must be positive decimal and minimum order size is 100 sq. ft.");
             }
         } while (isInvalidArea);
 
@@ -331,33 +300,14 @@ public class FlooringMasteryView {
         return editedOrder;
     }
 
-    public boolean displayEditOrderAndConfirmOrder() {
+    public boolean displayPendingOrderAndConfirmOrder(Order pendingOrder) {
+        //Display pending order information
+        this.displayOrderToProcess(pendingOrder, "PENDING ORDER");
 
-        return true;
-    }
-
-    public boolean displayOrderToRemoveAndConfirm(Order orderToRemove) {
-        // Display orderToRemove
-        io.print("");
-        io.print("Order To Remove");
-        io.print("===============");
-        io.print("Order date: " + orderToRemove.getOrderDate().format(DateTimeFormatter.ofPattern("MM-dd-yyyy")));
-        io.print("Customer name: " + orderToRemove.getCustomerName());
-        io.print("State: " + orderToRemove.getStateAbbreviation());
-        io.print("Product: " + orderToRemove.getProductType());
-        io.print("Product Cost: $" + orderToRemove.getCostPerSqFt() + " per sq. ft.");
-        io.print("Labour Cost: $" + orderToRemove.getLabourPerSqFt() + " per sq. ft.");
-        io.print("Area: " + orderToRemove.getArea() + " sq. ft.");
-        io.print("Product Cost: $" + orderToRemove.getMaterialCost());
-        io.print("Labour Cost: " + orderToRemove.getLabourCost());
-        io.print("Tax Cost: " + orderToRemove.getTaxCost());
-        io.print("Total Cost: " + orderToRemove.getTotalCost());
-        io.print("");
-    
         //Confirm with user to process order
-        String userConfirms = io.readString("Do you want to remove this order? (Y/N)");
+        String userConfirms = io.readString("Are you sure you want to add this order? (Y/N)");
         if (!userConfirms.equalsIgnoreCase("Y") && !userConfirms.equalsIgnoreCase("N")) {
-            userConfirms = io.readString("Do you want to remove this order? (Y/N)");
+            userConfirms = io.readString("Are you sure you want to add this order? (Y/N)");
         }
 
         if (userConfirms.equalsIgnoreCase("Y")) {
@@ -367,17 +317,38 @@ public class FlooringMasteryView {
         }
     }
     
-    public void displaySuccessRemoveOrder(Order orderDeleted) {
-        io.print("");
-        io.print("***Order Number " + orderDeleted.getOrderNumber() + " Successfully Removed***");
-        io.readString("Press ENTER to return to Main Menu.");
-        io.print("");
+    public boolean displayEditOrderAndConfirmOrder(Order orderToEdit) {
+        // Display orderToEdit
+        this.displayOrderToProcess(orderToEdit, "Order To Edit");
+        
+        //Confirm with user to edit order
+        String userConfirms = io.readString("Are you sure you want to edit this order? (Y/N)");
+        if (!userConfirms.equalsIgnoreCase("Y") && !userConfirms.equalsIgnoreCase("N")) {
+            userConfirms = io.readString("Are you sure you want to add this order? (Y/N)");
+        }
+
+        if (userConfirms.equalsIgnoreCase("Y")) {
+            return true;
+        } else {
+            return false;
+        }
     }
     
-    public void displayOrderNotRemoved() {
-        io.print("");
-        io.print("Order number "  + "not removed. Press ENTER to return to Main Menu.");
-        io.print("");
+    public boolean displayOrderToRemoveAndConfirm(Order orderToRemove) {
+        // Display orderToRemove
+        this.displayOrderToProcess(orderToRemove, "Order To Remove");
+    
+        //Confirm with user to process order
+        String userConfirms = io.readString("Are you sure you want to remove this order? (Y/N)");
+        if (!userConfirms.equalsIgnoreCase("Y") && !userConfirms.equalsIgnoreCase("N")) {
+            userConfirms = io.readString("Are you sure you want to remove this order? (Y/N)");
+        }
+
+        if (userConfirms.equalsIgnoreCase("Y")) {
+            return true;
+        } else {
+            return false;
+        }
     }
     
     public void displayErrorMessage(String message) {

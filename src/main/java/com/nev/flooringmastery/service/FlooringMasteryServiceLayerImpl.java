@@ -7,6 +7,7 @@
  */
 package com.nev.flooringmastery.service;
 
+import com.nev.flooringmastery.dao.FlooringMasteryAuditDao;
 import com.nev.flooringmastery.dao.FlooringMasteryOrderDao;
 import com.nev.flooringmastery.dao.FlooringMasteryPersistenceException;
 import com.nev.flooringmastery.dao.FlooringMasteryProductDao;
@@ -15,12 +16,12 @@ import com.nev.flooringmastery.dto.Order;
 import com.nev.flooringmastery.dto.Product;
 import com.nev.flooringmastery.dto.StateTax;
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.time.LocalDate;
 import java.util.Collection;
 
 public class FlooringMasteryServiceLayerImpl implements FlooringMasteryServiceLayer {
 
+    FlooringMasteryAuditDao auditDao;
     FlooringMasteryOrderDao orderDao;
     FlooringMasteryProductDao productDao;
     FlooringMasteryStateTaxDao stateTaxDao;
@@ -30,10 +31,12 @@ public class FlooringMasteryServiceLayerImpl implements FlooringMasteryServiceLa
     }
 
     public FlooringMasteryServiceLayerImpl(FlooringMasteryOrderDao orderDao,
-            FlooringMasteryProductDao productDao, FlooringMasteryStateTaxDao stateTaxDao) {
+            FlooringMasteryProductDao productDao, FlooringMasteryStateTaxDao stateTaxDao,
+            FlooringMasteryAuditDao auditDao) {
         this.orderDao = orderDao;
         this.productDao = productDao;
         this.stateTaxDao = stateTaxDao;
+        this.auditDao = auditDao;
     }
 
     private void validateOrderDate(LocalDate orderDate) throws FlooringMasteryDataValidationException {
@@ -90,6 +93,9 @@ public class FlooringMasteryServiceLayerImpl implements FlooringMasteryServiceLa
         }
             
         order.setOrderNumber(orderNumber);
+        
+        auditDao.writeAuditEntry("Order number " + order.getOrderNumber() + " ADDED for order date " + order.getOrderDate() + ".");
+        
         return orderDao.addOrder(order);
     }
 
@@ -101,6 +107,9 @@ public class FlooringMasteryServiceLayerImpl implements FlooringMasteryServiceLa
         this.validateState(order);
         this.validateProduct(order);
         this.validateArea(order);
+        
+        auditDao.writeAuditEntry("Order number " + order.getOrderNumber() + " EDITED for order date " + order.getOrderDate() + ".");
+        
         return orderDao.editOrder(order);
     }
 
@@ -108,7 +117,7 @@ public class FlooringMasteryServiceLayerImpl implements FlooringMasteryServiceLa
     public Order getOrder(LocalDate orderDate, int orderNumber) throws FlooringMasteryPersistenceException, FlooringMasteryNoOrderException {
         Order viewOrder = orderDao.getOrder(orderDate, orderNumber);
         if (viewOrder == null) {
-            throw new FlooringMasteryNoOrderException("No order found for order number " + orderNumber + " on order date " + orderDate + ".");
+            throw new FlooringMasteryNoOrderException("No order found for order number " + orderNumber + " on order date " + orderDate + ".\n");
         }
 
         return viewOrder;
@@ -120,10 +129,10 @@ public class FlooringMasteryServiceLayerImpl implements FlooringMasteryServiceLa
         try {
             allOrders = orderDao.getAllOrders(orderDate);
             if (allOrders.isEmpty()) {
-                throw new FlooringMasteryNoOrderException("No orders found for order date " + orderDate);
+                throw new FlooringMasteryNoOrderException("No orders found for order date " + orderDate + ".\n");
             }
         } catch (FlooringMasteryPersistenceException e) {
-            throw new FlooringMasteryNoOrderException("No orders found for order date " + orderDate);
+            throw new FlooringMasteryNoOrderException("No orders found for order date " + orderDate + ".\n");
         }
 
         return allOrders;
@@ -133,8 +142,9 @@ public class FlooringMasteryServiceLayerImpl implements FlooringMasteryServiceLa
     public Order removeOrder(LocalDate orderDate, int orderNumber) throws FlooringMasteryPersistenceException, FlooringMasteryNoOrderException {
         Order deleteOrder = orderDao.removeOrder(orderDate, orderNumber);
         if (deleteOrder == null) {
-            throw new FlooringMasteryNoOrderException("No order found for order number " + orderNumber + " on order date " + orderDate + ".");
+            throw new FlooringMasteryNoOrderException("No order found for order number " + orderNumber + " on order date " + orderDate + ".\n");
         }
+        auditDao.writeAuditEntry("Order number " + orderNumber + " REMOVED for order date " + orderDate + ".");
         return deleteOrder;
     }
 
@@ -147,7 +157,7 @@ public class FlooringMasteryServiceLayerImpl implements FlooringMasteryServiceLa
     public Product getProduct(String productType) throws FlooringMasteryPersistenceException, FlooringMasteryDataValidationException {
         Product chosenProduct = productDao.getProduct(productType);
         if (chosenProduct == null) {
-            throw new FlooringMasteryDataValidationException(productType + " is not an option from inventory.");
+            throw new FlooringMasteryDataValidationException(productType + " is not an option from inventory.\n");
         }
         return chosenProduct;
     }
@@ -161,7 +171,7 @@ public class FlooringMasteryServiceLayerImpl implements FlooringMasteryServiceLa
     public StateTax getStateTax(String stateAbbreviation) throws FlooringMasteryPersistenceException, FlooringMasteryDataValidationException {
         StateTax enteredState = stateTaxDao.getStateTax(stateAbbreviation);
         if (enteredState == null) {
-            throw new FlooringMasteryDataValidationException("Products cannot be sold to in " + enteredState + ".");
+            throw new FlooringMasteryDataValidationException("Products cannot be sold to in " + enteredState + ".\n");
         }
         return enteredState;
     }

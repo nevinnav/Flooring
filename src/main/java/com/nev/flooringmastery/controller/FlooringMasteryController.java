@@ -34,8 +34,6 @@ public class FlooringMasteryController {
     public void run() {
         boolean keepGoing = true;
         int menuSelection = 0;
-        //Collection<Product> productList = service.getAllProducts();
-        //Collection<StateTax> states = service.getAllStateTax();
 
         while (keepGoing) {
             try {
@@ -95,10 +93,10 @@ public class FlooringMasteryController {
         if (confirmation) {
             Order addedOrder = service.processNewOrder(pendingOrder);
             //Display Confirmation
-            view.displaySuccessAddOrder(addedOrder);
+            view.displaySuccessOrderProcess(addedOrder, " was added.");
         } else {
             //Display No Order Processed
-            view.displayOrderNotProcess();
+            view.displayOrderNotProcessed("Order NOT added.");
         }
     }
 
@@ -113,14 +111,19 @@ public class FlooringMasteryController {
         // Get order to edit and get new info to edit
         Order pendingEditOrder = service.getOrder(selectedOrderDate, selectedOrderNumber);
         // Display order to edit
-        view.displayOrderToEdit(pendingEditOrder);
+        view.displayOrderToProcess(pendingEditOrder, "ORDER TO EDIT");
         // Get edited order information
         Order editedOrder = view.getEditInfoOrder(pendingEditOrder, service.getAllProducts(), service.getAllStateTax());
         // Display editedOrder and confirm to process Y/N
+        boolean confirmation = view.displayEditOrderAndConfirmOrder(editedOrder);
         // If yes, process editOrder
-        // Display confirmation
-        // Display no order edited
-        service.processEditOrder(editedOrder);
+        if (confirmation) {
+            Order newEditedOrder = service.processEditOrder(editedOrder);
+            // Display confirmation
+            view.displaySuccessOrderProcess(newEditedOrder, " was edited.");
+        } else {
+            // Display no order edited
+        }   view.displayOrderNotProcessed("Order NOT edited.");
     }
 
     private void removeOrderProcess() throws FlooringMasteryPersistenceException, FlooringMasteryNoOrderException {
@@ -139,10 +142,10 @@ public class FlooringMasteryController {
         if (confirmation) {
             Order deletedOrder = service.removeOrder(selectedOrderDate, selectedOrderNumber);
             //Display confirmation
-            view.displaySuccessRemoveOrder(deletedOrder);
+            view.displaySuccessOrderProcess(deletedOrder, " was removed.");
         } else {
             //Display not processed
-            view.displayOrderNotRemoved();
+            view.displayOrderNotProcessed("Order NOT removed.");
         }
         
     }

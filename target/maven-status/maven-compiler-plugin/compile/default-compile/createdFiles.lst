@@ -1,10 +1,12 @@
 com/nev/flooringmastery/ui/UserIO.class
 com/nev/flooringmastery/ui/FlooringMasteryView.class
+com/nev/flooringmastery/dao/FlooringMasteryAuditDaoImpl.class
 com/nev/flooringmastery/service/FlooringMasteryNoOrderException.class
 com/nev/flooringmastery/dao/FlooringMasteryStateTaxDaoImpl.class
 com/nev/flooringmastery/ui/UserIOConsoleImpl.class
 com/nev/flooringmastery/dto/Order.class
 com/nev/flooringmastery/App.class
+com/nev/flooringmastery/dao/FlooringMasteryAuditDao.class
 com/nev/flooringmastery/dto/StateTax.class
 com/nev/flooringmastery/dao/FlooringMasteryStateTaxDao.class
 com/nev/flooringmastery/dto/Product.class
@@ -15,5 +17,6 @@ com/nev/flooringmastery/service/FlooringMasteryServiceLayer.class
 com/nev/flooringmastery/dao/FlooringMasteryPersistenceException.class
 com/nev/flooringmastery/service/FlooringMasteryServiceLayerImpl.class
 com/nev/flooringmastery/dao/FlooringMasteryOrderDao.class
+.netbeans_automatic_build
 com/nev/flooringmastery/dao/FlooringMasteryProductDao.class
 com/nev/flooringmastery/service/FlooringMasteryDataValidationException.class

@@ -8,6 +8,8 @@
 package com.nev.flooringmastery;
 
 import com.nev.flooringmastery.controller.FlooringMasteryController;
+import com.nev.flooringmastery.dao.FlooringMasteryAuditDao;
+import com.nev.flooringmastery.dao.FlooringMasteryAuditDaoImpl;
 import com.nev.flooringmastery.dao.FlooringMasteryOrderDao;
 import com.nev.flooringmastery.dao.FlooringMasteryOrderDaoImpl;
 import com.nev.flooringmastery.dao.FlooringMasteryPersistenceException;
@@ -30,7 +32,8 @@ public class App {
         FlooringMasteryOrderDao orderDao = new FlooringMasteryOrderDaoImpl();
         FlooringMasteryProductDao productDao = new FlooringMasteryProductDaoImpl();
         FlooringMasteryStateTaxDao stateTaxDao = new FlooringMasteryStateTaxDaoImpl();
-        FlooringMasteryServiceLayer service = new FlooringMasteryServiceLayerImpl(orderDao, productDao, stateTaxDao);
+        FlooringMasteryAuditDao auditDao = new FlooringMasteryAuditDaoImpl();
+        FlooringMasteryServiceLayer service = new FlooringMasteryServiceLayerImpl(orderDao, productDao, stateTaxDao, auditDao);
         UserIO userIO = new UserIOConsoleImpl();
         FlooringMasteryView view = new FlooringMasteryView(userIO);
         FlooringMasteryController controller = new FlooringMasteryController(service, view);

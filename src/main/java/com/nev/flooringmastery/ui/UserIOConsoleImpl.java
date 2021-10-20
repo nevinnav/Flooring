@@ -179,7 +179,7 @@ public class UserIOConsoleImpl implements UserIO {
                 result = new BigDecimal(valueString).setScale(2, RoundingMode.HALF_UP);
                 invalidInput = false;
             } catch (NumberFormatException e) {
-                System.out.println("Input Error. Please try again.");
+                System.out.println("Input Error. Please try again.\n");
             }
         }
         return result;
@@ -200,11 +200,12 @@ public class UserIOConsoleImpl implements UserIO {
                     if (result.compareTo(min) >= 0) {
                         invalidRange = false;
                     } else {
-                        this.print("Value must be greater than or equal to " + min);
+                        this.print("Value must be greater than or equal to " + min +".\n");
+                                
                     }
                 } while (invalidRange);
             } catch (NumberFormatException e) {
-                this.print("Invalid value");
+                this.print("Invalid value.\n");
             }
         }
         return result;
@@ -222,7 +223,7 @@ public class UserIOConsoleImpl implements UserIO {
                 date = LocalDate.parse(valueString);
                 invalidDate = false;
             } catch (DateTimeParseException e) {
-                this.print("Invalid date");
+                this.print("Invalid date.\n");
             }
         } while (invalidDate);
         return date;
@@ -241,10 +242,10 @@ public class UserIOConsoleImpl implements UserIO {
                 if (date.isAfter(LocalDate.now())) {
                     invalidDate = false;
                 } else {
-                    this.print("Date is not in future");
+                    this.print("Date is not in future.\n");
                 }
             } catch (DateTimeParseException e) {
-                this.print("Invalid date");
+                this.print("Invalid date.\n");
             }
         } while (invalidDate);
         return date;

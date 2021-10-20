@@ -1,2 +1,2 @@
 OrderNumber,CustomerName,State,TaxRate,ProductType,Area,CostPerSquareFoot, LaborCostPerSquareFoot,MaterialCost,LaborCost,Tax,Total
-1__Rami Mansieh__HI__4.00__Carpet__100.00__3.99__3.50__399.00__350.00__29.96__778.96
+1__Rami Mansieh__HI__4.00__Carpet__1000.00__3.99__3.50__3990.00__3500.00__299.60__7789.60
