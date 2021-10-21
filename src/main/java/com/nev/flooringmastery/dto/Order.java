@@ -10,6 +10,7 @@ package com.nev.flooringmastery.dto;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.LocalDate;
+import java.util.Objects;
 
 
 public class Order {
@@ -18,19 +19,16 @@ public class Order {
     private int orderNumber;
     private String customerName;
     private String stateAbbreviation;
-    private BigDecimal taxRate;         //Remove from Order?? StateTax
-    private String productType;         //Remove from Order?? Product
+    private BigDecimal taxRate;   
+    private String productType;        
     private BigDecimal area;
-    private BigDecimal costPerSqFt;     //Remove from Order?? Product
-    private BigDecimal labourPerSqFt;   //Remove from Order?? Product
-    private BigDecimal materialCost;    //Remove from Order?? Product
-    private BigDecimal labourCost;      //Calculation
-    private BigDecimal taxCost;         //Calculation
-    private BigDecimal totalCost;       //Calculation
+    private BigDecimal costPerSqFt;    
+    private BigDecimal labourPerSqFt;  
+    private BigDecimal materialCost;    
+    private BigDecimal labourCost;    
+    private BigDecimal taxCost;        
+    private BigDecimal totalCost;     
 
-    //public Order (int orderNumber, StateTax stateAbbreviation, Product productType, BigDecimal area) {
-    //
-    //}
 
     public LocalDate getOrderDate() {
         return orderDate;
@@ -150,6 +148,84 @@ public class Order {
     
     public void setTotalCost(BigDecimal totalCost) {
         this.totalCost = totalCost;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 29 * hash + Objects.hashCode(this.orderDate);
+        hash = 29 * hash + this.orderNumber;
+        hash = 29 * hash + Objects.hashCode(this.customerName);
+        hash = 29 * hash + Objects.hashCode(this.stateAbbreviation);
+        hash = 29 * hash + Objects.hashCode(this.taxRate);
+        hash = 29 * hash + Objects.hashCode(this.productType);
+        hash = 29 * hash + Objects.hashCode(this.area);
+        hash = 29 * hash + Objects.hashCode(this.costPerSqFt);
+        hash = 29 * hash + Objects.hashCode(this.labourPerSqFt);
+        hash = 29 * hash + Objects.hashCode(this.materialCost);
+        hash = 29 * hash + Objects.hashCode(this.labourCost);
+        hash = 29 * hash + Objects.hashCode(this.taxCost);
+        hash = 29 * hash + Objects.hashCode(this.totalCost);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Order other = (Order) obj;
+        if (this.orderNumber != other.orderNumber) {
+            return false;
+        }
+        if (!Objects.equals(this.customerName, other.customerName)) {
+            return false;
+        }
+        if (!Objects.equals(this.stateAbbreviation, other.stateAbbreviation)) {
+            return false;
+        }
+        if (!Objects.equals(this.productType, other.productType)) {
+            return false;
+        }
+        if (!Objects.equals(this.orderDate, other.orderDate)) {
+            return false;
+        }
+        if (!Objects.equals(this.taxRate, other.taxRate)) {
+            return false;
+        }
+        if (!Objects.equals(this.area, other.area)) {
+            return false;
+        }
+        if (!Objects.equals(this.costPerSqFt, other.costPerSqFt)) {
+            return false;
+        }
+        if (!Objects.equals(this.labourPerSqFt, other.labourPerSqFt)) {
+            return false;
+        }
+        if (!Objects.equals(this.materialCost, other.materialCost)) {
+            return false;
+        }
+        if (!Objects.equals(this.labourCost, other.labourCost)) {
+            return false;
+        }
+        if (!Objects.equals(this.taxCost, other.taxCost)) {
+            return false;
+        }
+        if (!Objects.equals(this.totalCost, other.totalCost)) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "Order{" + "orderDate=" + orderDate + ", orderNumber=" + orderNumber + ", customerName=" + customerName + ", stateAbbreviation=" + stateAbbreviation + ", taxRate=" + taxRate + ", productType=" + productType + ", area=" + area + ", costPerSqFt=" + costPerSqFt + ", labourPerSqFt=" + labourPerSqFt + ", materialCost=" + materialCost + ", labourCost=" + labourCost + ", taxCost=" + taxCost + ", totalCost=" + totalCost + '}';
     }
     
 }

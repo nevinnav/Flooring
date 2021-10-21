@@ -9,6 +9,7 @@ package com.nev.flooringmastery.dto;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.Objects;
 
 
 public class Product {
@@ -46,4 +47,43 @@ public class Product {
     public void setLabourPerSqFt(BigDecimal labourPerSqFt) {
         this.labourPerSqFt = labourPerSqFt;
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 71 * hash + Objects.hashCode(this.productType);
+        hash = 71 * hash + Objects.hashCode(this.costPerSqFt);
+        hash = 71 * hash + Objects.hashCode(this.labourPerSqFt);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Product other = (Product) obj;
+        if (!Objects.equals(this.productType, other.productType)) {
+            return false;
+        }
+        if (!Objects.equals(this.costPerSqFt, other.costPerSqFt)) {
+            return false;
+        }
+        if (!Objects.equals(this.labourPerSqFt, other.labourPerSqFt)) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "Product{" + "productType=" + productType + ", costPerSqFt=" + costPerSqFt + ", labourPerSqFt=" + labourPerSqFt + '}';
+    }
+    
 }

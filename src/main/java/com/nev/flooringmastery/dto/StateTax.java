@@ -9,6 +9,7 @@ package com.nev.flooringmastery.dto;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.Objects;
 
 
 public class StateTax {
@@ -45,6 +46,44 @@ public class StateTax {
     
     public void setTaxRate(BigDecimal taxRate) {
         this.taxRate = taxRate;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 67 * hash + Objects.hashCode(this.stateAbbreviation);
+        hash = 67 * hash + Objects.hashCode(this.stateName);
+        hash = 67 * hash + Objects.hashCode(this.taxRate);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final StateTax other = (StateTax) obj;
+        if (!Objects.equals(this.stateAbbreviation, other.stateAbbreviation)) {
+            return false;
+        }
+        if (!Objects.equals(this.stateName, other.stateName)) {
+            return false;
+        }
+        if (!Objects.equals(this.taxRate, other.taxRate)) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "StateTax{" + "stateAbbreviation=" + stateAbbreviation + ", stateName=" + stateName + ", taxRate=" + taxRate + '}';
     }
     
 }

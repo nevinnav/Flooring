@@ -17,6 +17,5 @@ com/nev/flooringmastery/service/FlooringMasteryServiceLayer.class
 com/nev/flooringmastery/dao/FlooringMasteryPersistenceException.class
 com/nev/flooringmastery/service/FlooringMasteryServiceLayerImpl.class
 com/nev/flooringmastery/dao/FlooringMasteryOrderDao.class
-.netbeans_automatic_build
 com/nev/flooringmastery/dao/FlooringMasteryProductDao.class
 com/nev/flooringmastery/service/FlooringMasteryDataValidationException.class

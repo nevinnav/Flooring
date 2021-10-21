@@ -8,6 +8,7 @@
 package com.nev.flooringmastery.dao;
 
 import com.nev.flooringmastery.dto.Order;
+import com.nev.flooringmastery.service.FlooringMasteryNoOrderException;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -59,6 +60,7 @@ public class FlooringMasteryOrderDaoImpl implements FlooringMasteryOrderDao {
         } catch (FlooringMasteryPersistenceException e) {
             this.orders = new HashMap<>();
         }
+        
         orders.put(order.getOrderNumber(), order);
         this.writeOrders(order.getOrderDate());
         return order;
@@ -93,8 +95,6 @@ public class FlooringMasteryOrderDaoImpl implements FlooringMasteryOrderDao {
         // 2,Doctor Who,WA,9.25,Wood,243.00,5.15,4.75,1251.45,1154.25,216.51,2622.21
 
         String[] orderTokens = orderAsText.split(DELIMITER);
-
-        int orderNumber = Integer.parseInt(orderTokens[0]);
 
         // Create new Order object
         Order orderFromFile = new Order();

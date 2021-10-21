@@ -284,20 +284,21 @@ public class FlooringMasteryView {
         } while (isInvalidArea);
 
         // Set new edited order
-        editedOrder.setOrderDate(editedOrder.getOrderDate());
-        editedOrder.setOrderNumber(editedOrder.getOrderNumber());
-        editedOrder.setCustomerName(newCustomerName);
-        editedOrder.setStateAbbreviation(state.getStateAbbreviation());
-        editedOrder.setProductType(product.getProductType());
-        editedOrder.setArea(newArea);
-        editedOrder.setTaxRate(state.getTaxRate());
-        editedOrder.setCostPerSqFt(product.getCostPerSqFt());
-        editedOrder.setLabourPerSqFt(product.getLabourPerSqFt());
-        editedOrder.setMaterialCost();
-        editedOrder.setLabourCost();
-        editedOrder.setTaxCost();
-        editedOrder.setTotalCost();
-        return editedOrder;
+        Order newEditedOrder = new Order();
+        newEditedOrder.setOrderDate(editedOrder.getOrderDate());
+        newEditedOrder.setOrderNumber(editedOrder.getOrderNumber());
+        newEditedOrder.setCustomerName(newCustomerName);
+        newEditedOrder.setStateAbbreviation(state.getStateAbbreviation());
+        newEditedOrder.setProductType(product.getProductType());
+        newEditedOrder.setArea(newArea);
+        newEditedOrder.setTaxRate(state.getTaxRate());
+        newEditedOrder.setCostPerSqFt(product.getCostPerSqFt());
+        newEditedOrder.setLabourPerSqFt(product.getLabourPerSqFt());
+        newEditedOrder.setMaterialCost();
+        newEditedOrder.setLabourCost();
+        newEditedOrder.setTaxCost();
+        newEditedOrder.setTotalCost();
+        return newEditedOrder;
     }
 
     public boolean displayPendingOrderAndConfirmOrder(Order pendingOrder) {
@@ -319,12 +320,12 @@ public class FlooringMasteryView {
     
     public boolean displayEditOrderAndConfirmOrder(Order orderToEdit) {
         // Display orderToEdit
-        this.displayOrderToProcess(orderToEdit, "Order To Edit");
+        this.displayOrderToProcess(orderToEdit, "ORDER TO EDIT");
         
         //Confirm with user to edit order
         String userConfirms = io.readString("Are you sure you want to edit this order? (Y/N)");
         if (!userConfirms.equalsIgnoreCase("Y") && !userConfirms.equalsIgnoreCase("N")) {
-            userConfirms = io.readString("Are you sure you want to add this order? (Y/N)");
+            userConfirms = io.readString("Are you sure you want to edit this order? (Y/N)");
         }
 
         if (userConfirms.equalsIgnoreCase("Y")) {
@@ -336,7 +337,7 @@ public class FlooringMasteryView {
     
     public boolean displayOrderToRemoveAndConfirm(Order orderToRemove) {
         // Display orderToRemove
-        this.displayOrderToProcess(orderToRemove, "Order To Remove");
+        this.displayOrderToProcess(orderToRemove, "ORDER TO REMOVE");
     
         //Confirm with user to process order
         String userConfirms = io.readString("Are you sure you want to remove this order? (Y/N)");

@@ -93,7 +93,7 @@ public class FlooringMasteryController {
         if (confirmation) {
             Order addedOrder = service.processNewOrder(pendingOrder);
             //Display Confirmation
-            view.displaySuccessOrderProcess(addedOrder, " was added.");
+            view.displaySuccessOrderProcess(addedOrder, " was added");
         } else {
             //Display No Order Processed
             view.displayOrderNotProcessed("Order NOT added.");
@@ -120,10 +120,11 @@ public class FlooringMasteryController {
         if (confirmation) {
             Order newEditedOrder = service.processEditOrder(editedOrder);
             // Display confirmation
-            view.displaySuccessOrderProcess(newEditedOrder, " was edited.");
+            view.displaySuccessOrderProcess(newEditedOrder, " was edited");
         } else {
             // Display no order edited
-        }   view.displayOrderNotProcessed("Order NOT edited.");
+            view.displayOrderNotProcessed("Order NOT edited.");
+        }   
     }
 
     private void removeOrderProcess() throws FlooringMasteryPersistenceException, FlooringMasteryNoOrderException {
@@ -142,7 +143,7 @@ public class FlooringMasteryController {
         if (confirmation) {
             Order deletedOrder = service.removeOrder(selectedOrderDate, selectedOrderNumber);
             //Display confirmation
-            view.displaySuccessOrderProcess(deletedOrder, " was removed.");
+            view.displaySuccessOrderProcess(deletedOrder, " was removed");
         } else {
             //Display not processed
             view.displayOrderNotProcessed("Order NOT removed.");
