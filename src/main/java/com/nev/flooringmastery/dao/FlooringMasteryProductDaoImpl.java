@@ -17,8 +17,9 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
+import org.springframework.stereotype.Component;
 
-
+@Component
 public class FlooringMasteryProductDaoImpl implements FlooringMasteryProductDao {
 
     public final String PRODUCT_FILE;

@@ -1,2 +1,2 @@
 OrderNumber,CustomerName,State,TaxRate,ProductType,Area,CostPerSquareFoot, LaborCostPerSquareFoot,MaterialCost,LaborCost,Tax,Total
-1__NJ__WA__6.50__Carpet__100.00__3.99__3.50__399.00__350.00__48.69__797.69
+1__Stephen Curry__CA__7.25__Hardwood__100.00__1.00__1.00__100.00__100.00__14.50__214.50

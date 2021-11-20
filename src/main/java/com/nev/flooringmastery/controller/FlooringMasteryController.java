@@ -9,8 +9,6 @@ package com.nev.flooringmastery.controller;
 
 import com.nev.flooringmastery.dao.FlooringMasteryPersistenceException;
 import com.nev.flooringmastery.dto.Order;
-import com.nev.flooringmastery.dto.Product;
-import com.nev.flooringmastery.dto.StateTax;
 import com.nev.flooringmastery.service.FlooringMasteryDataValidationException;
 import com.nev.flooringmastery.service.FlooringMasteryNoOrderException;
 import com.nev.flooringmastery.service.FlooringMasteryServiceLayer;
@@ -19,13 +17,17 @@ import com.nev.flooringmastery.ui.UserIO;
 import com.nev.flooringmastery.ui.UserIOConsoleImpl;
 import java.time.LocalDate;
 import java.util.Collection;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+@Component
 public class FlooringMasteryController {
 
     private FlooringMasteryServiceLayer service;
     private FlooringMasteryView view;
     private UserIO io = new UserIOConsoleImpl();
 
+    @Autowired
     public FlooringMasteryController(FlooringMasteryServiceLayer service, FlooringMasteryView view) {
         this.service = service;
         this.view = view;
@@ -54,13 +56,13 @@ public class FlooringMasteryController {
                         removeOrderProcess();
                         break;
                     case 5:
-                        io.print("Export All Data");
+                        exportAllOrders();
                         break;
                     case 6:
                         keepGoing = false;
                         break;
                     default:
-                        io.print("UNKNOWN COMMAND");
+                        unknownCommand();
 
                 }
             } catch (FlooringMasteryPersistenceException | FlooringMasteryNoOrderException
@@ -68,7 +70,7 @@ public class FlooringMasteryController {
                 displayErrorMessage(e.getMessage()); 
             } 
         }
-        io.print("GOOD BYE");
+        exitMessage();
     }
 
     private int getMenuSelection() {
@@ -96,7 +98,7 @@ public class FlooringMasteryController {
             view.displaySuccessOrderProcess(addedOrder, " was added");
         } else {
             //Display No Order Processed
-            view.displayOrderNotProcessed("Order NOT added.");
+            view.displayMessage("Order NOT added.");
         }
     }
 
@@ -123,7 +125,7 @@ public class FlooringMasteryController {
             view.displaySuccessOrderProcess(newEditedOrder, " was edited");
         } else {
             // Display no order edited
-            view.displayOrderNotProcessed("Order NOT edited.");
+            view.displayMessage("Order NOT edited.");
         }   
     }
 
@@ -146,12 +148,34 @@ public class FlooringMasteryController {
             view.displaySuccessOrderProcess(deletedOrder, " was removed");
         } else {
             //Display not processed
-            view.displayOrderNotProcessed("Order NOT removed.");
+            view.displayMessage("Order NOT removed.");
         }
         
     }
     
+    public void exportAllOrders() throws FlooringMasteryPersistenceException {
+        // Get confirmation from user to process exporting all orders
+        boolean confirmation = view.displayExportAllDataConfirmation();
+        // If user confirms, export all data
+        if (confirmation) {
+            service.exportAllOrders();
+            //Display confirmation
+            view.displayMessage("***Export All Data Successfull***");            
+        } else {
+            //Display not exported
+            view.displayMessage("Export All Data NOT processed.");
+        }
+    }
+    
     private void displayErrorMessage(String message) {
         view.displayErrorMessage(message);
+    }
+    
+    private void unknownCommand() {
+        view.displayUnknownCommandBanner();
+    }
+    
+    private void exitMessage() {
+        view.displayExitBanner();
     }
 }

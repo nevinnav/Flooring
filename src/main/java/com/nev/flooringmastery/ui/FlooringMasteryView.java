@@ -14,10 +14,13 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Collection;
-import java.util.Scanner;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+@Component
 public class FlooringMasteryView {
 
+    @Autowired
     private UserIO io;
 
     public FlooringMasteryView(UserIO io) {
@@ -82,7 +85,7 @@ public class FlooringMasteryView {
         io.print("");
     }
     
-    public void displayOrderNotProcessed(String message) {
+    public void displayMessage(String message) {
         io.print("");
         io.print(message);
         io.readString("Press ENTER to return to Main Menu.");
@@ -106,7 +109,7 @@ public class FlooringMasteryView {
         io.print("Total Cost: " + order.getTotalCost());
         io.print("");
     }
-
+    
     public StateTax checkState(Collection<StateTax> stateTaxes, String stateString) {
         StateTax checkState = stateTaxes.stream().filter((p) -> p.getStateAbbreviation().equals(stateString))
                 .findAny().orElse(null);
@@ -195,7 +198,6 @@ public class FlooringMasteryView {
 
         return pendingOrder;
     }
-
 
     public Order getEditInfoOrder(Order editedOrder, Collection<Product> productTypes, Collection<StateTax> stateTaxes) {
         // Edit Customer Name
@@ -352,7 +354,29 @@ public class FlooringMasteryView {
         }
     }
     
+    public boolean displayExportAllDataConfirmation() {
+        //Confirm with user to process exporting all data
+        String userConfirms = io.readString("Are you sure you want to export all data? (Y/N)");
+        if (!userConfirms.equalsIgnoreCase("Y") && !userConfirms.equalsIgnoreCase("N")) {
+            userConfirms = io.readString("Are you sure you want to export all data? (Y/N)");
+        }
+
+        if (userConfirms.equalsIgnoreCase("Y")) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
     public void displayErrorMessage(String message) {
         io.print(message);
+    }
+    
+    public void displayUnknownCommandBanner() {
+        io.print("UNKNOWN COMMAND!!!");
+    }
+    
+    public void displayExitBanner() {
+        io.print("THANK YOU!!!");
     }
 }

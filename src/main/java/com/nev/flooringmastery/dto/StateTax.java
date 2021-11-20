@@ -17,19 +17,21 @@ public class StateTax {
     private String stateAbbreviation;
     private String stateName;
     private BigDecimal taxRate;
+    
+    public StateTax() {
+        
+    }
 
     public StateTax(String stateAbbreviation) {
-        this.stateAbbreviation = stateAbbreviation;
-    }
-    
-    public StateTax(String stateAbbreviation, String stateName, BigDecimal taxRate) {
-        this.stateAbbreviation = stateAbbreviation;
-        this.stateName = stateName;
-        this.taxRate = taxRate.setScale(2, RoundingMode.HALF_UP);
+       this.stateAbbreviation = stateAbbreviation;
     }
 
     public String getStateAbbreviation() {
         return stateAbbreviation;
+    }
+
+    public void setStateAbbreviation(String stateAbbreviation) {
+        this.stateAbbreviation = stateAbbreviation;
     }
     
     public String getStateName() {

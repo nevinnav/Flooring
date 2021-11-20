@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="com.nev.flooringmastery.dao.FlooringMasteryProductDaoImplTest" time="0.029" tests="2" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="com.nev.flooringmastery.service.FlooringMasteryServiceLayerImplTest" time="0.486" tests="9" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.runtime.name" value="OpenJDK Runtime Environment"/>
     <property name="java.vm.version" value="11.0.11+9"/>
@@ -14,6 +14,7 @@
     <property name="sun.os.patch.level" value="unknown"/>
     <property name="user.country" value="CA"/>
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
+    <property name="test" value="com.nev.flooringmastery.service.FlooringMasteryServiceLayerImplTest"/>
     <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
     <property name="user.dir" value="/Users/nev/Documents/github-classroom-play-nevinnav/FlooringMastery"/>
     <property name="java.vm.compressedOopsMode" value="Zero based"/>
@@ -45,7 +46,7 @@
     <property name="java.class.path" value="/Applications/NetBeans/Apache NetBeans 12.3.app/Contents/Resources/NetBeans/netbeans/java/maven/boot/plexus-classworlds-2.6.0.jar"/>
     <property name="java.vm.specification.version" value="11"/>
     <property name="sun.arch.data.model" value="64"/>
-    <property name="sun.java.command" value="org.codehaus.plexus.classworlds.launcher.Launcher -Dmaven.ext.class.path=/Applications/NetBeans/Apache NetBeans 12.3.app/Contents/Resources/NetBeans/netbeans/java/maven-nblib/netbeans-eventspy.jar clean install"/>
+    <property name="sun.java.command" value="org.codehaus.plexus.classworlds.launcher.Launcher -Dtest=com.nev.flooringmastery.service.FlooringMasteryServiceLayerImplTest -Dmaven.ext.class.path=/Applications/NetBeans/Apache NetBeans 12.3.app/Contents/Resources/NetBeans/netbeans/java/maven-nblib/netbeans-eventspy.jar surefire:test"/>
     <property name="java.home" value="/Library/Java/JavaVirtualMachines/adoptopenjdk-11.jdk/Contents/Home"/>
     <property name="user.language" value="en"/>
     <property name="java.specification.vendor" value="Oracle Corporation"/>
@@ -64,6 +65,13 @@
     <property name="ftp.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
     <property name="sun.cpu.isalist" value=""/>
   </properties>
-  <testcase name="testGetProduct" classname="com.nev.flooringmastery.dao.FlooringMasteryProductDaoImplTest" time="0.025"/>
-  <testcase name="testGetAllProducts" classname="com.nev.flooringmastery.dao.FlooringMasteryProductDaoImplTest" time="0.002"/>
+  <testcase name="testValidNewOrder" classname="com.nev.flooringmastery.service.FlooringMasteryServiceLayerImplTest" time="0.032"/>
+  <testcase name="testNewOrderInvalidArea" classname="com.nev.flooringmastery.service.FlooringMasteryServiceLayerImplTest" time="0"/>
+  <testcase name="testNewOrderInvalidProduct" classname="com.nev.flooringmastery.service.FlooringMasteryServiceLayerImplTest" time="0.001"/>
+  <testcase name="testNewOrderInvalidState" classname="com.nev.flooringmastery.service.FlooringMasteryServiceLayerImplTest" time="0.006"/>
+  <testcase name="testGetOrder" classname="com.nev.flooringmastery.service.FlooringMasteryServiceLayerImplTest" time="0.006"/>
+  <testcase name="testRemoveOrder" classname="com.nev.flooringmastery.service.FlooringMasteryServiceLayerImplTest" time="0.002"/>
+  <testcase name="testGetAllOrders" classname="com.nev.flooringmastery.service.FlooringMasteryServiceLayerImplTest" time="0.001"/>
+  <testcase name="testNewOrderInvalidCustomerName" classname="com.nev.flooringmastery.service.FlooringMasteryServiceLayerImplTest" time="0.001"/>
+  <testcase name="testNewOrderInvalidOrderDate" classname="com.nev.flooringmastery.service.FlooringMasteryServiceLayerImplTest" time="0.008"/>
 </testsuite>

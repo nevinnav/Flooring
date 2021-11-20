@@ -8,8 +8,8 @@
 package com.nev.flooringmastery.dao;
 
 import com.nev.flooringmastery.dto.Order;
-import com.nev.flooringmastery.service.FlooringMasteryNoOrderException;
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -24,7 +24,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 import java.util.Set;
+import org.springframework.stereotype.Component;
 
+@Component
 public class FlooringMasteryOrderDaoImpl implements FlooringMasteryOrderDao {
 
     public String fileFormat = "Orders/Orders_";
@@ -60,7 +62,7 @@ public class FlooringMasteryOrderDaoImpl implements FlooringMasteryOrderDao {
         } catch (FlooringMasteryPersistenceException e) {
             this.orders = new HashMap<>();
         }
-        
+
         orders.put(order.getOrderNumber(), order);
         this.writeOrders(order.getOrderDate());
         return order;
@@ -85,8 +87,57 @@ public class FlooringMasteryOrderDaoImpl implements FlooringMasteryOrderDao {
 
     @Override
     public String exportAllOrders() throws FlooringMasteryPersistenceException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        String exportFile = "DataExport.txt";
+        String orderFileHeader = "OrderNumber,CustomerName,State,TaxRate,ProductType,Area,CostPerSquareFoot, "
+                + "LaborCostPerSquareFoot,MaterialCost,LaborCost,Tax,Total,OrderDate";
+        
+        //File directory of orders
+        String fileDirectory = "Orders/";
+        File orderDirectory = new File(fileDirectory);
+        //File list in array of orderFiles in directory
+        File[] orderFiles = orderDirectory.listFiles();
+
+        Scanner scanner;
+        PrintWriter out;
+        //Create PrintWriter to write out all orders to the file
+        try{
+            out = new PrintWriter(new FileWriter(exportFile));
+        } catch (IOException e) {
+            throw new FlooringMasteryPersistenceException("-_- Could not save data", e);
+        }
+        
+        out.println(orderFileHeader);
+        
+        //Load order files
+        for (File eachFile : orderFiles) {
+            String fileName = eachFile.getName();
+            //[Orders_MMddyyyy.txt]
+            String stringDate = fileName.substring(7, 15);
+            //Get orderdate from fileName
+            LocalDate orderDate = LocalDate.parse(stringDate, DateTimeFormatter.ofPattern("MMddyyyy"));
+
+            try {
+                //Create Scanner for read all the order files from Orders Directory
+                scanner = new Scanner(new BufferedReader(new FileReader("Orders/" + fileName)));
+            } catch (FileNotFoundException e) {
+                throw new FlooringMasteryPersistenceException("-_- Could not load order file with orderdate.", e);
+            }
+                if (scanner.hasNextLine()) {
+                    scanner.nextLine();
+                }
+                            
+                while (scanner.hasNextLine()) {
+                    String currentOrder = scanner.nextLine();
+                    out.println(currentOrder + "__" + orderDate.format(DateTimeFormatter.ofPattern("MMddyyyy")));
+                    out.flush();
+                }
+                
+                
+        } 
+        out.close();
+        return exportFile;
     }
+    
 
     private Order unmarshallOrder(String orderAsText) {
         // orderAsTest is expecting a line read in from our file.

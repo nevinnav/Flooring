@@ -1,0 +1,3 @@
+OrderNumber,CustomerName,State,TaxRate,ProductType,Area,CostPerSquareFoot, LaborCostPerSquareFoot,MaterialCost,LaborCost,Tax,Total
+1__Stephen Curry__CA__7.25__Hardwood__100.00__1.00__1.00__100.00__100.00__14.50__214.50
+2__Klay Thompson__CA__7.25__Class Hardwood__1000.00__2.00__2.00__2000.00__2000.00__290.00__4290.00

@@ -12,7 +12,9 @@ import java.math.RoundingMode;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.Scanner;
+import org.springframework.stereotype.Component;
 
+@Component
 public class UserIOConsoleImpl implements UserIO {
     
     Scanner inputReader = new Scanner(System.in);

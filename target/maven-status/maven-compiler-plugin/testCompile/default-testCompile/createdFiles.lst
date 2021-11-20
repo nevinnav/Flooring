@@ -1,3 +1,8 @@
+com/nev/flooringmastery/service/FlooringMasteryAuditDaoStubImpl.class
+com/nev/flooringmastery/service/FlooringMasteryOrderDaoStubImpl.class
+com/nev/flooringmastery/service/FlooringMasteryProductDaoStubImpl.class
+com/nev/flooringmastery/service/FlooringMasteryServiceLayerImplTest.class
 com/nev/flooringmastery/dao/FlooringMasteryOrderDaoImplTest.class
-com/nev/flooringmastery/dao/FlooringMasteryProductDaoImplTest.class
 com/nev/flooringmastery/dao/FlooringMasteryStateTaxDaoImplTest.class
+com/nev/flooringmastery/dao/FlooringMasteryProductDaoImplTest.class
+com/nev/flooringmastery/service/FlooringMasteryStateTaxDaoStubImpl.class

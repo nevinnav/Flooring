@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<testsuite tests="1" failures="1" name="com.nev.flooringmastery.dao.FlooringMasteryStateTaxDaoImplTest" time="0" errors="0" skipped="0">
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="com.nev.flooringmastery.dao.FlooringMasteryStateTaxDaoImplTest" time="0.005" tests="2" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.runtime.name" value="OpenJDK Runtime Environment"/>
     <property name="java.vm.version" value="11.0.11+9"/>
@@ -21,8 +21,7 @@
     <property name="java.awt.graphicsenv" value="sun.awt.CGraphicsEnvironment"/>
     <property name="os.arch" value="x86_64"/>
     <property name="java.io.tmpdir" value="/var/folders/8c/bw5qp2pd14g7tv140xp7d0dh0000gn/T/"/>
-    <property name="line.separator" value="
-"/>
+    <property name="line.separator" value="&#10;"/>
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="os.name" value="Mac OS X"/>
     <property name="maven.ext.class.path" value="/Applications/NetBeans/Apache NetBeans 12.3.app/Contents/Resources/NetBeans/netbeans/java/maven-nblib/netbeans-eventspy.jar"/>
@@ -65,11 +64,6 @@
     <property name="ftp.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
     <property name="sun.cpu.isalist" value=""/>
   </properties>
-  <testcase classname="com.nev.flooringmastery.dao.FlooringMasteryStateTaxDaoImplTest" name="com.nev.flooringmastery.dao.FlooringMasteryStateTaxDaoImplTest.testSomeMethod" time="0">
-    <failure message="The test case is a prototype." type="org.opentest4j.AssertionFailedError">org.opentest4j.AssertionFailedError: The test case is a prototype.
-	at org.junit.jupiter.api.AssertionUtils.fail(AssertionUtils.java:39)
-	at org.junit.jupiter.api.Assertions.fail(Assertions.java:109)
-	at com.nev.flooringmastery.dao.FlooringMasteryStateTaxDaoImplTest.testSomeMethod(FlooringMasteryStateTaxDaoImplTest.java:43)
-</failure>
-  </testcase>
+  <testcase name="testGetState" classname="com.nev.flooringmastery.dao.FlooringMasteryStateTaxDaoImplTest" time="0.002"/>
+  <testcase name="testGetAllStates" classname="com.nev.flooringmastery.dao.FlooringMasteryStateTaxDaoImplTest" time="0.002"/>
 </testsuite>

@@ -18,18 +18,20 @@ public class Product {
     private BigDecimal costPerSqFt;
     private BigDecimal labourPerSqFt;
     
+    public Product() {
+        
+    }
+    
     public Product(String productType) {
         this.productType = productType;
     }
 
-    public Product(String productType, BigDecimal costPerSqFt, BigDecimal labourPerSqFt) {
-        this.productType = productType;
-        this.costPerSqFt = costPerSqFt.setScale(2, RoundingMode.HALF_UP);
-        this.labourPerSqFt = labourPerSqFt.setScale(2, RoundingMode.HALF_UP);
-    }
-
     public String getProductType() {
         return productType;
+    }
+
+    public void setProductType(String productType) {
+        this.productType = productType;
     }
     
     public BigDecimal getCostPerSqFt() {

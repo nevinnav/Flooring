@@ -17,8 +17,9 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
+import org.springframework.stereotype.Component;
 
-
+@Component
 public class FlooringMasteryStateTaxDaoImpl implements FlooringMasteryStateTaxDao {
 
     public final String TAX_FILE;

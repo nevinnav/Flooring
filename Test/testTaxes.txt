@@ -1,0 +1,11 @@
+StateAbbreviation,StateName,TaxRate
+AK,Alaska,0.00
+AZ,Arizona,5.60
+CA,California,7.25
+CO,Colorado,2.90
+FL,Florida,6.00
+HI,Hawaii,4.00
+MD,Maryland,6.00
+NV,Nevada,4.75
+UT,Utah,6.10
+WA,Washington,6.50

@@ -7,40 +7,46 @@
 */
 package com.nev.flooringmastery.dao;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.AfterAll;
+import com.nev.flooringmastery.dto.StateTax;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.util.Collection;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 
 public class FlooringMasteryStateTaxDaoImplTest {
   
-    FlooringMasteryOrderDao testDao;
+    FlooringMasteryStateTaxDao testStateDao;
     
     public FlooringMasteryStateTaxDaoImplTest() {
     }
     
-    @BeforeAll
-    public static void setUpClass() {
-    }
-    
-    @AfterAll
-    public static void tearDownClass() {
-    }
-    
     @BeforeEach
     public void setUp() {
-    }
-    
-    @AfterEach
-    public void tearDown() {
-    }
+        testStateDao = new FlooringMasteryStateTaxDaoImpl("Test/testTaxes.txt");
+    }  
 
     @Test
-    public void testSomeMethod() {
-        fail("The test case is a prototype.");
+    public void testGetState() throws FlooringMasteryPersistenceException {
+        StateTax testState = testStateDao.getStateTax("CA");
+        
+        //Check specifics such as StateName and TaxRate
+        assertEquals(testState.getStateName(), "California", "State name should be California");
+        assertEquals(testState.getTaxRate(), new BigDecimal("7.25").setScale(2, RoundingMode.HALF_UP));
+        
     }
-    
+    @Test
+    public void testGetAllStates() throws FlooringMasteryPersistenceException {
+        Collection<StateTax> allTestStates = testStateDao.getAllStateTax();
+        
+        //Check specifics
+        assertNotNull(allTestStates, "All state tax list should NOT be null.");
+        assertEquals(10, allTestStates.size(), "State tax list should include 10 states.");
+        assertFalse(allTestStates.contains(testStateDao.getStateTax("NY")), "State tax list should not include New York (NY)");
+        assertTrue(allTestStates.contains(testStateDao.getStateTax("MD")), "State tax list should include Maryland (MD)");
+        
+    }
+
 }

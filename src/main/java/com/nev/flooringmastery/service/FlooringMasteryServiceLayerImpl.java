@@ -18,7 +18,10 @@ import com.nev.flooringmastery.dto.StateTax;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Collection;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+@Component
 public class FlooringMasteryServiceLayerImpl implements FlooringMasteryServiceLayer {
 
     FlooringMasteryAuditDao auditDao;
@@ -30,6 +33,7 @@ public class FlooringMasteryServiceLayerImpl implements FlooringMasteryServiceLa
 
     }
 
+    @Autowired
     public FlooringMasteryServiceLayerImpl(FlooringMasteryOrderDao orderDao,
             FlooringMasteryProductDao productDao, FlooringMasteryStateTaxDao stateTaxDao,
             FlooringMasteryAuditDao auditDao) {
@@ -65,8 +69,8 @@ public class FlooringMasteryServiceLayerImpl implements FlooringMasteryServiceLa
         }
     }
 
-    private void validateProduct(Order order) throws FlooringMasteryDataValidationException {
-        if (order.getProductType() == null) {
+    private void validateProduct(Order order) throws FlooringMasteryDataValidationException, FlooringMasteryPersistenceException {
+        if (this.getProduct(order.getProductType()) == null) {
             throw new FlooringMasteryDataValidationException(order.getProductType() + " not part of item inventory.");
         }
     }
@@ -116,6 +120,7 @@ public class FlooringMasteryServiceLayerImpl implements FlooringMasteryServiceLa
     @Override
     public Order getOrder(LocalDate orderDate, int orderNumber) throws FlooringMasteryPersistenceException, FlooringMasteryNoOrderException {
         Order viewOrder = orderDao.getOrder(orderDate, orderNumber);
+        
         if (viewOrder == null) {
             throw new FlooringMasteryNoOrderException("No order found for order number " + orderNumber + " on order date " + orderDate + ".\n");
         }
@@ -150,7 +155,7 @@ public class FlooringMasteryServiceLayerImpl implements FlooringMasteryServiceLa
 
     @Override
     public String exportAllOrders() throws FlooringMasteryPersistenceException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return orderDao.exportAllOrders();
     }
 
     @Override

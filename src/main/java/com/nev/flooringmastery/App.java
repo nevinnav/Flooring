@@ -8,28 +8,25 @@
 package com.nev.flooringmastery;
 
 import com.nev.flooringmastery.controller.FlooringMasteryController;
-import com.nev.flooringmastery.dao.FlooringMasteryAuditDao;
-import com.nev.flooringmastery.dao.FlooringMasteryAuditDaoImpl;
-import com.nev.flooringmastery.dao.FlooringMasteryOrderDao;
-import com.nev.flooringmastery.dao.FlooringMasteryOrderDaoImpl;
 import com.nev.flooringmastery.dao.FlooringMasteryPersistenceException;
-import com.nev.flooringmastery.dao.FlooringMasteryProductDao;
-import com.nev.flooringmastery.dao.FlooringMasteryProductDaoImpl;
-import com.nev.flooringmastery.dao.FlooringMasteryStateTaxDao;
-import com.nev.flooringmastery.dao.FlooringMasteryStateTaxDaoImpl;
 import com.nev.flooringmastery.service.FlooringMasteryDataValidationException;
 import com.nev.flooringmastery.service.FlooringMasteryNoOrderException;
-import com.nev.flooringmastery.service.FlooringMasteryServiceLayer;
-import com.nev.flooringmastery.service.FlooringMasteryServiceLayerImpl;
-import com.nev.flooringmastery.ui.FlooringMasteryView;
-import com.nev.flooringmastery.ui.UserIO;
-import com.nev.flooringmastery.ui.UserIOConsoleImpl;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 
 public class App {
     
     public static void main(String[] args) throws FlooringMasteryPersistenceException, FlooringMasteryDataValidationException, FlooringMasteryNoOrderException {
-        FlooringMasteryOrderDao orderDao = new FlooringMasteryOrderDaoImpl();
+        
+        AnnotationConfigApplicationContext appContext = new AnnotationConfigApplicationContext();
+        appContext.scan("com.nev.flooringmastery");
+        appContext.refresh();
+        
+        FlooringMasteryController controller = appContext.getBean("flooringMasteryController", 
+                FlooringMasteryController.class);
+        controller.run();
+        
+        /*FlooringMasteryOrderDao orderDao = new FlooringMasteryOrderDaoImpl();
         FlooringMasteryProductDao productDao = new FlooringMasteryProductDaoImpl();
         FlooringMasteryStateTaxDao stateTaxDao = new FlooringMasteryStateTaxDaoImpl();
         FlooringMasteryAuditDao auditDao = new FlooringMasteryAuditDaoImpl();
@@ -38,5 +35,6 @@ public class App {
         FlooringMasteryView view = new FlooringMasteryView(userIO);
         FlooringMasteryController controller = new FlooringMasteryController(service, view);
         controller.run();
+        **/
     }
 }
